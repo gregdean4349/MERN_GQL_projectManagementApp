@@ -23,7 +23,7 @@ const DELETE_CLIENT = gql`
 `
 
 const UPDATE_CLIENT = gql`
-  mutation updateClient(
+  mutation UpdateClient(
     $id: ID!
     $name: String!
     $email: String!

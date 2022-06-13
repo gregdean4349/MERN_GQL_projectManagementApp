@@ -1,7 +1,12 @@
 import Header from './components/Header'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
-import Clients from './components/Clients'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Project from './pages/Project'
+import NotFound from './pages/NotFound'
 
+// refetchQueries: [{ query: GET_CLIENTS }] Refetching Queries will bog down app..
+// use update cache instead! also in ClientRow.js!
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
@@ -30,10 +35,16 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <Header />
-        <div className='container'>
-          <Clients />
-        </div>
+        <Router>
+          <Header />
+          <div className='container'>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/project/:id' element={<Project />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </div>
+        </Router>
       </ApolloProvider>
     </>
   )
